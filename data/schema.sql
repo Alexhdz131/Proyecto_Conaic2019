@@ -1,6 +1,6 @@
-CREATE DATABASE kuorra_login;
+CREATE DATABASE acreditacion;
 
-USE kuorra_login;
+USE acreditacion;
 
 CREATE TABLE users(
     username varchar(20) NOT NULL PRIMARY KEY,
@@ -30,6 +30,12 @@ CREATE TABLE logs(
     FOREIGN KEY (username) REFERENCES users(username)
 )ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+CREATE TABLE IF NOT EXISTS temas (
+  id_tema integer NOT NULL PRIMARY KEY AUTO_INCREMENT COMMENT 'llave primaria de la tabla temas',
+  tema varchar(50) NOT NULL,
+  descripcion varchar(30) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
 
 INSERT INTO users (username, password, privilege, status, name, email, other_data, user_hash, change_pwd)
 VALUES ('admin',MD5(concat('admin', 'kuorra_key')), 0, 1, 'Admin', 'admin@gmail.com','TIC:SI', MD5(concat('admin', 'kuorra_key', '2016/06/04')), 0),
@@ -40,5 +46,5 @@ SELECT * FROM users;
 SELECT * FROM sessions;
 
 CREATE USER 'kuorra'@'localhost' IDENTIFIED BY 'kuorra.2018';
-GRANT ALL PRIVILEGES ON kuorra_login.* TO 'kuorra'@'localhost';
+GRANT ALL PRIVILEGES ON acreditacion.* TO 'kuorra'@'localhost';
 FLUSH PRIVILEGES;
